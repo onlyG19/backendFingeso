@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.fingeso.backendtusach.services.TicketService;
 import com.fingeso.backendtusach.models.Ticket;
-import com.fingeso.backendtusach.dtos.ticket.DTOCrearTicket;
+import com.fingeso.backendtusach.dtos.ticket.*;
 
 @RestController
 @RequestMapping("/ticket")
@@ -33,8 +33,9 @@ public class TicketController {
     }
 
     @GetMapping(path = "/{id}")
-    public Optional<Ticket> obtenerTicketPorId(@PathVariable("id") Long id){
-        return ticketService.obtenerPorId(id);
+    public Optional<DTOObtenerTicket> obtenerTicketPorId(@PathVariable("id") Long id){
+        return ticketService.obtenerPorId(id)
+            .map((ticket) -> DTOObtenerTicket.aDTO(ticket));
     }
     
     @GetMapping("/query")
