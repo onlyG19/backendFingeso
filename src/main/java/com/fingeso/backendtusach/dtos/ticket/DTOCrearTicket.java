@@ -1,4 +1,6 @@
 package com.fingeso.backendtusach.dtos.ticket;
+import java.time.LocalDate;
+
 import com.fingeso.backendtusach.models.Ticket;
 
 public class DTOCrearTicket {
@@ -13,6 +15,7 @@ public class DTOCrearTicket {
         ticket.setTitulo(dto.motivo);
         ticket.setCategoria(dto.categoria);
         ticket.setCuerpo(dto.cuerpo);
+        ticket.setFecha_creacion(LocalDate.now());
 
         return ticket;
     }

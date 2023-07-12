@@ -23,8 +23,13 @@ public class TicketController {
     TicketService ticketService;
 
     @GetMapping()
-    public ArrayList<Ticket> obtenerTickets(){
-        return ticketService.obtenerTickets();
+    public ArrayList<DTOTicketLista> obtenerTickets(){
+        return new ArrayList<>(ticketService
+            .obtenerTickets()
+            .stream()
+            .map((ticket) -> DTOTicketLista.aDTO(ticket))
+            .toList()
+        );
     }
 
     @PostMapping()

@@ -1,5 +1,7 @@
 package com.fingeso.backendtusach.models;
 
+import java.time.LocalDate;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,6 +20,7 @@ public class Ticket {
     private String titulo;
     private String cuerpo;
     private String archivo_adjunto;
+    private LocalDate fecha_creacion;
 
     public Long getId() {
         return id;
@@ -89,5 +92,13 @@ public class Ticket {
 
     public void setArchivo_adjunto(String archivo_adjunto) {
         this.archivo_adjunto = archivo_adjunto;
+    }
+
+    public LocalDate getFecha_creacion() {
+        return fecha_creacion;
+    }
+
+    public void setFecha_creacion(LocalDate fecha_creacion) {
+        this.fecha_creacion = fecha_creacion;
     }
 }
