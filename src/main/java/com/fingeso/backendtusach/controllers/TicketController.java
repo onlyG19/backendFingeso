@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.fingeso.backendtusach.services.TicketService;
 import com.fingeso.backendtusach.models.Ticket;
+import com.fingeso.backendtusach.dtos.ticket.DTOCrearTicket;
 
 @RestController
 @RequestMapping("/ticket")
@@ -27,8 +28,8 @@ public class TicketController {
     }
 
     @PostMapping()
-    public Ticket guardarTicket(@RequestBody Ticket ticket){
-        return ticketService.guardarTicket(ticket);
+    public Ticket guardarTicket(@RequestBody DTOCrearTicket ticket){
+        return ticketService.guardarTicket(DTOCrearTicket.aEntidad(ticket));
     }
 
     @GetMapping(path = "/{id}")
