@@ -12,6 +12,12 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
+
+    // Usuario que creo el ticket
+    @ManyToOne
+    @JoinColumn(name = "usuario_asociado")
+    private Usuario usuario_asociado;
+
     private String clave_externa;
     private Integer estado;
     private String actividad;
@@ -28,6 +34,14 @@ public class Ticket {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Usuario getUsuario_asociado() {
+        return usuario_asociado;
+    }
+
+    public void setUsuario_asociado(Usuario usuario_asociado) {
+        this.usuario_asociado = usuario_asociado;
     }
 
     public String getClave_externa() {

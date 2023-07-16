@@ -1,5 +1,6 @@
 package com.fingeso.backendtusach.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,17 +11,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fingeso.backendtusach.dtos.usuario.DTOCredencial;
 import com.fingeso.backendtusach.dtos.usuario.DTOSesion;
+import com.fingeso.backendtusach.services.UsuarioService;
 
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
+    @Autowired
+    UsuarioService usuario_service;
+
     @PostMapping("/iniciar-sesion")
     public ResponseEntity<DTOSesion> iniciarSesion(@RequestBody DTOCredencial credencial){
         DTOSesion sesion = null;
         HttpStatus estado = HttpStatus.FORBIDDEN;
         
-        if(credencial.getNombre_usuario().equals("adminusuario") && credencial.getContrasena().equals("admin")){
-            sesion = new DTOSesion("stringrandomcontokenyesascosas");
+        String token = usuario_service.validarCredenciales(credencial.getNombre_usuario(), credencial.getContrasena());
+
+        if(token != null){
+            sesion = new DTOSesion(token);
             estado = HttpStatus.ACCEPTED;
         }
 
