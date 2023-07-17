@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,6 +42,11 @@ public class TicketController {
     public Optional<DTOObtenerTicket> obtenerTicketPorId(@PathVariable("id") Long id){
         return ticketService.obtenerPorId(id)
             .map((ticket) -> DTOObtenerTicket.aDTO(ticket));
+    }
+
+    @PostMapping(path = "/{id}/asignar")
+    public void asignarTicket(@PathVariable("id") Long id_ticket, @RequestBody DTOAsignarTicket ticket){
+        ticketService.asignarTicket(id_ticket, ticket.getId_analista());
     }
     
     @GetMapping("/query")
