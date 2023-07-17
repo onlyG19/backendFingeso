@@ -9,11 +9,17 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
-
     private String nombre_usuario;
     private String rol;
     private String contrasena;
 
+
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
     public String getNombre_usuario() {
         return nombre_usuario;
     }
