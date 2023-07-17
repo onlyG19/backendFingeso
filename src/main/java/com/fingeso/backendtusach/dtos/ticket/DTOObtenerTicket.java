@@ -22,6 +22,8 @@ public class DTOObtenerTicket {
 
         ArrayList<DTOSeguimiento> historial = new ArrayList<>();
         ticket.getHistorial().forEach(el -> historial.add(DTOSeguimiento.aDTO(el)));
+        // Ordena el historial de mas reciente a mas antiguo
+        historial.sort((a, b) -> b.getFecha().compareTo(a.getFecha()));
         dto.seguimiento = historial;
 
         return dto;
