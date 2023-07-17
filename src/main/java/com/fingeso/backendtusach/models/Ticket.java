@@ -1,6 +1,8 @@
 package com.fingeso.backendtusach.models;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -18,11 +20,18 @@ public class Ticket {
     @JoinColumn(name = "usuario_asociado")
     private Usuario usuario_asociado;
 
+    // Historial del ticket
+    @OneToMany(mappedBy = "ticket_asociado")
+    private List<Seguimiento> historial = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "analista_asociado")
+    private Usuario analista_asociado;
+
     private String clave_externa;
     private Integer estado;
     private String actividad;
     private String categoria;
-    private Long id_analista_asignado;
     private String titulo;
     private String cuerpo;
     private String archivo_adjunto;
@@ -76,12 +85,12 @@ public class Ticket {
         this.categoria = categoria;
     }
 
-    public Long getId_analista_asignado() {
-        return id_analista_asignado;
+    public Usuario getAnalista_asociado() {
+        return analista_asociado;
     }
 
-    public void setId_analista_asignado(Long id_analista_asignado) {
-        this.id_analista_asignado = id_analista_asignado;
+    public void setAnalista_asociado(Usuario analista_asociado) {
+        this.analista_asociado = analista_asociado;
     }
 
     public String getTitulo() {
@@ -114,5 +123,9 @@ public class Ticket {
 
     public void setFecha_creacion(LocalDate fecha_creacion) {
         this.fecha_creacion = fecha_creacion;
+    }
+
+    public List<Seguimiento> getHistorial() {
+        return historial;
     }
 }

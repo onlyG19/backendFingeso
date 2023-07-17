@@ -3,9 +3,7 @@ package com.fingeso.backendtusach.services;
 import com.fingeso.backendtusach.models.Usuario;
 import com.fingeso.backendtusach.repositories.UsuarioRepository;
 import org.springframework.stereotype.Service;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 
 @Service
 public class UsuarioService {

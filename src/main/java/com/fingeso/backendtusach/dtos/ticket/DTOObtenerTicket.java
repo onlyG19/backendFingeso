@@ -1,5 +1,8 @@
 package com.fingeso.backendtusach.dtos.ticket;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.fingeso.backendtusach.dtos.seguimiento.DTOSeguimiento;
 import com.fingeso.backendtusach.models.Ticket;
 
 public class DTOObtenerTicket {
@@ -7,7 +10,7 @@ public class DTOObtenerTicket {
     private String categoria;
     private String cuerpo;
     private String respuesta;
-    private List<Object> seguimiento;
+    private List<DTOSeguimiento> seguimiento;
 
     // Transforma una entidad a un DTO
     public static DTOObtenerTicket aDTO(Ticket ticket){
@@ -16,7 +19,11 @@ public class DTOObtenerTicket {
         dto.motivo = ticket.getTitulo();
         dto.categoria = ticket.getCategoria();
         dto.cuerpo = ticket.getCuerpo();
-        
+
+        ArrayList<DTOSeguimiento> historial = new ArrayList<>();
+        ticket.getHistorial().forEach(el -> historial.add(DTOSeguimiento.aDTO(el)));
+        dto.seguimiento = historial;
+
         return dto;
     }
 
@@ -44,10 +51,10 @@ public class DTOObtenerTicket {
     public void setRespuesta(String respuesta) {
         this.respuesta = respuesta;
     }
-    public List<Object> getSeguimiento() {
+    public List<DTOSeguimiento> getSeguimiento() {
         return seguimiento;
     }
-    public void setSeguimiento(List<Object> seguimiento) {
+    public void setSeguimiento(List<DTOSeguimiento> seguimiento) {
         this.seguimiento = seguimiento;
     }
 

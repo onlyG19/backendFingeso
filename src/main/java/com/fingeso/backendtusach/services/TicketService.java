@@ -1,9 +1,12 @@
 package com.fingeso.backendtusach.services;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import com.fingeso.backendtusach.models.Seguimiento;
 import com.fingeso.backendtusach.models.Ticket;
+import com.fingeso.backendtusach.repositories.SeguimientoRepository;
 import com.fingeso.backendtusach.repositories.TicketRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +15,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class TicketService {
     @Autowired
     TicketRepository ticketRepository;
+    @Autowired
+    SeguimientoRepository seguimientoRepository;
 
     public ArrayList<Ticket> obtenerTickets(){
         return (ArrayList<Ticket>) ticketRepository.findAll();
     }
 
     public Ticket guardarTicket(Ticket ticket){
-        return ticketRepository.save(ticket);
+        ticket = ticketRepository.save(ticket);
+        agregarActividad(ticket.getId(), "Creado");
+        return ticket;
     }
 
     public Optional<Ticket> obtenerPorId(Long id){
@@ -40,5 +47,12 @@ public class TicketService {
         }catch(Exception err){
             return false;
         }
+    }
+
+    public void agregarActividad(Long id_ticket, String actividad){
+        Ticket ticket = ticketRepository.findById(id_ticket).get();
+
+        Seguimiento nueva_actividad = new Seguimiento(ticket, actividad);
+        seguimientoRepository.save(nueva_actividad);
     }
 }
