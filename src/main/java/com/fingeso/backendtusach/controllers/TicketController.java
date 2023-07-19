@@ -47,6 +47,12 @@ public class TicketController {
     public void asignarTicket(@PathVariable("id") Long id_ticket, @RequestBody DTOAsignarTicket ticket){
         ticketService.asignarTicket(id_ticket, ticket.getId_analista());
     }
+
+    @PostMapping(path = "/{id}/agregar-actividad")
+    public void agregarActividad(@PathVariable("id") Long id_ticket, @RequestBody DTOAgregarActividad agregar_actividad){
+        ticketService.agregarActividad(id_ticket, agregar_actividad.actividad);
+    }
+
     
     @GetMapping("/query")
     public ArrayList<Ticket> obtenerTicketPorActividad(@RequestParam("actividad") String actividad){
