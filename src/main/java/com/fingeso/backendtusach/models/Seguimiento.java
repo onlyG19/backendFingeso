@@ -1,13 +1,12 @@
 package com.fingeso.backendtusach.models;
 
 import java.time.LocalDateTime;
-
 import javax.persistence.*;
+
 
 @Entity
 @Table(name = "Seguimiento")
 public class Seguimiento {
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
@@ -19,29 +18,27 @@ public class Seguimiento {
     private LocalDateTime fecha;
     private String actividad;
 
-    public Seguimiento(){}
+    protected Seguimiento(){}
     public Seguimiento(Ticket ticket_asociado, String actividad){
+        fecha = LocalDateTime.now();
+
         this.ticket_asociado = ticket_asociado;
         this.actividad = actividad;
-        this.fecha = LocalDateTime.now();
     }
 
-    public Ticket getTicket_asociado() {
+    public Long getId(){
+        return id;
+    }
+
+    public Ticket getTicket(){
         return ticket_asociado;
     }
-    public void setTicket_asociado(Ticket ticket_asociado) {
-        this.ticket_asociado = ticket_asociado;
-    }
-    public LocalDateTime getFecha() {
+
+    public LocalDateTime getFecha(){
         return fecha;
     }
-    public void setFecha(LocalDateTime fecha) {
-        this.fecha = fecha;
-    }
-    public String getActividad() {
+
+    public String getActividad(){
         return actividad;
-    }
-    public void setActividad(String actividad) {
-        this.actividad = actividad;
     }
 }
