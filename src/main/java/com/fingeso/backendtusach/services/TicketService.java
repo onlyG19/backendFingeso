@@ -36,7 +36,7 @@ public class TicketService {
         Ticket ticket = ticketRepository.findById(id_ticket).get();
         Usuario analista = usuarios.findById(id_usuario).get();
         
-        ticket.setAnalista_asociado(analista);
+        ticket.analista_asociado = analista;
         agregarActividad(ticket.getId(), "Asignado");
         ticketRepository.save(ticket);
 

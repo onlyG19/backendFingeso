@@ -16,7 +16,7 @@ public class DTOTicketLista {
         dto.id = ticket.getId();
         dto.motivo = ticket.getTitulo();
         dto.categoria = ticket.getCategoria();
-        dto.fecha_creacion = ticket.getFecha_creacion();
+        dto.fecha_creacion = ticket.getFechaCreacion().toLocalDate();
         
         return dto;
     }

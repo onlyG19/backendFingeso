@@ -1,5 +1,4 @@
 package com.fingeso.backendtusach.dtos.ticket;
-import java.time.LocalDate;
 
 import com.fingeso.backendtusach.models.Ticket;
 
@@ -10,14 +9,7 @@ public class DTOCrearTicket {
 
     // Transforma el DTO a una entidad valida
     public static Ticket aEntidad(DTOCrearTicket dto){
-        Ticket ticket = new Ticket();
-
-        ticket.setTitulo(dto.motivo);
-        ticket.setCategoria(dto.categoria);
-        ticket.setCuerpo(dto.cuerpo);
-        ticket.setFecha_creacion(LocalDate.now());
-
-        return ticket;
+        return new Ticket(dto.motivo, dto.cuerpo, dto.categoria);
     }
 
     public String getMotivo() {
