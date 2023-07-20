@@ -94,6 +94,11 @@ public class TicketController {
         ticketService.agregarActividad(id_ticket, agregar_actividad.actividad);
     }
 
+    @PostMapping(path = "/{id}/agregar-respuesta")
+    public void agregarRespuesta(@PathVariable("id") Long id_ticket, @RequestBody DTOAgregarRespuesta agregar_respuesta){
+        ticketService.agregarRespuesta(id_ticket, agregar_respuesta.respuesta);
+    }
+
     
     @GetMapping("/query")
     public ArrayList<Ticket> obtenerTicketPorActividad(@RequestParam("actividad") String actividad){

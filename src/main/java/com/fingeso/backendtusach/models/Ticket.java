@@ -27,6 +27,10 @@ public class Ticket {
     @JoinColumn(name = "analista_asociado")
     public Usuario analista_asociado;
 
+    // Respuestas asociadas al ticket
+    @OneToMany(mappedBy = "ticket_asociado")
+    private List<Respuesta> respuestas = new ArrayList<>();
+
     private LocalDateTime fecha_creacion;
     private String categoria;
     private String titulo;
@@ -73,5 +77,8 @@ public class Ticket {
 
     public List<Seguimiento> getHistorial(){
         return historial;
+    }
+    public List<Respuesta> getRespuestas(){
+        return respuestas;
     }
 }

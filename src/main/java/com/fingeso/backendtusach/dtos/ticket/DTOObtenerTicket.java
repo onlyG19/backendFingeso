@@ -6,11 +6,12 @@ import com.fingeso.backendtusach.dtos.seguimiento.DTOSeguimiento;
 import com.fingeso.backendtusach.models.Ticket;
 
 public class DTOObtenerTicket {
-    private String motivo;
-    private String categoria;
-    private String cuerpo;
-    private String respuesta;
-    private List<DTOSeguimiento> seguimiento;
+    public String motivo;
+    public String categoria;
+    public String cuerpo;
+    public String estado;
+    public String respuesta;
+    public List<DTOSeguimiento> seguimiento;
 
     // Transforma una entidad a un DTO
     public static DTOObtenerTicket aDTO(Ticket ticket){
@@ -19,45 +20,20 @@ public class DTOObtenerTicket {
         dto.motivo = ticket.getTitulo();
         dto.categoria = ticket.getCategoria();
         dto.cuerpo = ticket.getCuerpo();
+        dto.estado = ticket.estado;
 
+        // Historial de seguimiento
         ArrayList<DTOSeguimiento> historial = new ArrayList<>();
         ticket.getHistorial().forEach(el -> historial.add(DTOSeguimiento.aDTO(el)));
         // Ordena el historial de mas reciente a mas antiguo
         historial.sort((a, b) -> b.getFecha().compareTo(a.getFecha()));
         dto.seguimiento = historial;
 
+        // Respuesta del ticket
+        if(!ticket.getRespuestas().isEmpty()){
+            dto.respuesta = ticket.getRespuestas().get(ticket.getRespuestas().size() - 1).getRespuesta();
+        }
+
         return dto;
     }
-
-    public String getMotivo() {
-        return motivo;
-    }
-    public void setMotivo(String motivo) {
-        this.motivo = motivo;
-    }
-    public String getCategoria() {
-        return categoria;
-    }
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-    public String getCuerpo() {
-        return cuerpo;
-    }
-    public void setCuerpo(String cuerpo) {
-        this.cuerpo = cuerpo;
-    }
-    public String getRespuesta() {
-        return respuesta;
-    }
-    public void setRespuesta(String respuesta) {
-        this.respuesta = respuesta;
-    }
-    public List<DTOSeguimiento> getSeguimiento() {
-        return seguimiento;
-    }
-    public void setSeguimiento(List<DTOSeguimiento> seguimiento) {
-        this.seguimiento = seguimiento;
-    }
-
 }

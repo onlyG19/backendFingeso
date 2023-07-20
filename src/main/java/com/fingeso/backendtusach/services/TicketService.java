@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import com.fingeso.backendtusach.dtos.ticket.DTOCrearTicket;
+import com.fingeso.backendtusach.models.Respuesta;
 import com.fingeso.backendtusach.models.Seguimiento;
 import com.fingeso.backendtusach.models.Ticket;
 import com.fingeso.backendtusach.models.Usuario;
+import com.fingeso.backendtusach.repositories.RespuestaRepository;
 import com.fingeso.backendtusach.repositories.SeguimientoRepository;
 import com.fingeso.backendtusach.repositories.TicketRepository;
 import com.fingeso.backendtusach.repositories.UsuarioRepository;
@@ -22,6 +24,8 @@ public class TicketService {
     TicketRepository ticketRepository;
     @Autowired
     SeguimientoRepository seguimientoRepository;
+    @Autowired
+    RespuestaRepository respuestas;
 
     public ArrayList<Ticket> obtenerTickets(){
         return (ArrayList<Ticket>) ticketRepository.findAll();
@@ -29,8 +33,6 @@ public class TicketService {
 
     public Ticket guardarTicket(DTOCrearTicket ticket_crear){
         Usuario usuario_asociado = usuarios.findById(ticket_crear.id_usuario).get();
-
-        System.out.println(usuario_asociado);
 
         Ticket ticket = DTOCrearTicket.aEntidad(ticket_crear, usuario_asociado);
         ticket = ticketRepository.save(ticket);
@@ -92,5 +94,15 @@ public class TicketService {
 
         Seguimiento nueva_actividad = new Seguimiento(ticket, actividad);
         seguimientoRepository.save(nueva_actividad);
+    }
+
+    public void agregarRespuesta(Long id_ticket, String respuesta){
+        Ticket ticket = ticketRepository.findById(id_ticket).get();
+
+        agregarActividad(id_ticket, "Enviado a revisión");
+        Respuesta nueva_respuesta = new Respuesta(ticket, respuesta);
+        respuestas.save(nueva_respuesta);
+        ticket.estado = "En Proceso Cierre";
+        ticketRepository.save(ticket);
     }
 }
