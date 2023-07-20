@@ -40,6 +40,7 @@ public class Ticket {
     public Ticket(String titulo, String cuerpo, String categoria){
         fecha_creacion = LocalDateTime.now();
         usuario_asociado = null;
+        estado = "Creado";
 
         this.titulo = titulo;
         this.cuerpo = cuerpo;

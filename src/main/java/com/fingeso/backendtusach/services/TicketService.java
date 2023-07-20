@@ -38,6 +38,7 @@ public class TicketService {
         
         ticket.analista_asociado = analista;
         agregarActividad(ticket.getId(), "Asignado");
+        ticket.estado = "En Proceso";
         ticketRepository.save(ticket);
 
         return ticket;
