@@ -22,7 +22,15 @@ public class TicketController {
     @Autowired
     TicketService ticketService;
 
-    @GetMapping()
+    // Creación de ticket
+    @PostMapping
+    public Ticket guardarTicket(@RequestBody DTOCrearTicket ticket){
+        return ticketService.guardarTicket(ticket);
+    }
+
+
+    // Consultas por ticket
+    @GetMapping
     public ArrayList<DTOTicketLista> obtenerTickets(){
         return new ArrayList<>(ticketService
             .obtenerTickets()
@@ -32,17 +40,23 @@ public class TicketController {
         );
     }
 
-    @PostMapping()
-    public Ticket guardarTicket(@RequestBody DTOCrearTicket ticket){
-        return ticketService.guardarTicket(ticket);
-    }
-
     @GetMapping(path = "/{id}")
     public Optional<DTOObtenerTicket> obtenerTicketPorId(@PathVariable("id") Long id){
         return ticketService.obtenerPorId(id)
             .map((ticket) -> DTOObtenerTicket.aDTO(ticket));
     }
 
+    @GetMapping(path = "/por-usuario")
+    public ArrayList<DTOTicketLista> obtenerTicketPorUsuario(@RequestParam Long id_usuario){
+        return new ArrayList<>(ticketService.obtenerPorUsuario(id_usuario)
+            .stream()
+            .map((ticket) -> DTOTicketLista.aDTO(ticket))
+            .toList()
+        );
+    }
+
+
+    // Acciones sobre el ticket
     @PostMapping(path = "/{id}/asignar")
     public void asignarTicket(@PathVariable("id") Long id_ticket, @RequestBody DTOAsignarTicket ticket){
         ticketService.asignarTicket(id_ticket, ticket.getId_analista());

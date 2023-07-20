@@ -54,6 +54,10 @@ public class TicketService {
         return ticketRepository.findById(id);
     }
     
+    public ArrayList<Ticket> obtenerPorUsuario(Long id_usuario){
+        return ticketRepository.buscarPorUsuarioAsociado(id_usuario);
+    }
+    
     public ArrayList<Ticket> obtenerPorActividad(String actividad){
         return ticketRepository.findByActividad(actividad);
     }
