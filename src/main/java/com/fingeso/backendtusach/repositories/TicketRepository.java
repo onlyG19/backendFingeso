@@ -13,6 +13,12 @@ public interface TicketRepository extends CrudRepository<Ticket, Long> {
     @Query("SELECT tk FROM Ticket tk WHERE tk.usuario_asociado.id = ?1")
     public ArrayList<Ticket> buscarPorUsuarioAsociado(Long id_usuario);
 
+    @Query("SELECT tk FROM Ticket tk WHERE tk.estado = ?1")
+    public ArrayList<Ticket> buscarPorEstado(String estado);
+
+    @Query("SELECT tk FROM Ticket tk WHERE tk.estado = 'En Proceso' AND tk.analista_asociado.id = ?1")
+    public ArrayList<Ticket> buscarPorAnalizar(Long id_usuario);
+
     public abstract ArrayList<Ticket> findByActividad(String actividad);
     public abstract ArrayList<Ticket> findByCategoria(String categoria);
 }

@@ -58,6 +58,18 @@ public class TicketService {
         return ticketRepository.buscarPorUsuarioAsociado(id_usuario);
     }
     
+    public ArrayList<Ticket> obtenerPorAsignar(){
+        return ticketRepository.buscarPorEstado("Creado");
+    }
+    
+    public ArrayList<Ticket> obtenerPorValidar(){
+        return ticketRepository.buscarPorEstado("En Proceso Cierre");
+    }
+    
+    public ArrayList<Ticket> obtenerPorAnalizar(Long id_analista){
+        return ticketRepository.buscarPorAnalizar(id_analista);
+    }
+    
     public ArrayList<Ticket> obtenerPorActividad(String actividad){
         return ticketRepository.findByActividad(actividad);
     }

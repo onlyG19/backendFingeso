@@ -47,8 +47,35 @@ public class TicketController {
     }
 
     @GetMapping(path = "/por-usuario")
-    public ArrayList<DTOTicketLista> obtenerTicketPorUsuario(@RequestParam Long id_usuario){
+    public ArrayList<DTOTicketLista> obtenerTicketsPorUsuario(@RequestParam Long id_usuario){
         return new ArrayList<>(ticketService.obtenerPorUsuario(id_usuario)
+            .stream()
+            .map((ticket) -> DTOTicketLista.aDTO(ticket))
+            .toList()
+        );
+    }
+
+    @GetMapping(path = "/por-asignar")
+    public ArrayList<DTOTicketLista> obtenerTicketsPorAsignar(){
+        return new ArrayList<>(ticketService.obtenerPorAsignar()
+            .stream()
+            .map((ticket) -> DTOTicketLista.aDTO(ticket))
+            .toList()
+        );
+    }
+
+    @GetMapping(path = "/por-validar")
+    public ArrayList<DTOTicketLista> obtenerTicketsPorValidar(){
+        return new ArrayList<>(ticketService.obtenerPorValidar()
+            .stream()
+            .map((ticket) -> DTOTicketLista.aDTO(ticket))
+            .toList()
+        );
+    }
+
+    @GetMapping(path = "/por-analizar")
+    public ArrayList<DTOTicketLista> obtenerTicketPorAnalizar(@RequestParam Long id_usuario){
+        return new ArrayList<>(ticketService.obtenerPorAnalizar(id_usuario)
             .stream()
             .map((ticket) -> DTOTicketLista.aDTO(ticket))
             .toList()
