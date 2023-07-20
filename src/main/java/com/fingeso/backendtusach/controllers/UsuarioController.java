@@ -29,10 +29,10 @@ public class UsuarioController {
         DTOSesion sesion = null;
         HttpStatus estado = HttpStatus.FORBIDDEN;
         
-        String token = usuario_service.validarCredenciales(credencial.getNombre_usuario(), credencial.getContrasena());
+        Usuario usuario = usuario_service.buscarCredenciales(credencial.getNombre_usuario(), credencial.getContrasena());
 
-        if(token != null){
-            sesion = new DTOSesion(token);
+        if(usuario != null){
+            sesion = new DTOSesion(usuario);
             estado = HttpStatus.ACCEPTED;
         }
 

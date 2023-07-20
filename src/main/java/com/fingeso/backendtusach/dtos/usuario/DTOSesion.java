@@ -1,17 +1,13 @@
 package com.fingeso.backendtusach.dtos.usuario;
 
+import com.fingeso.backendtusach.models.Usuario;
+
 public class DTOSesion {
-    private String token = null;
+    public String token;
+    public Long id;
 
-    public DTOSesion(String token){
-        this.token = token;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
+    public DTOSesion(Usuario usuario){
+        token = usuario.getRol();
+        id = usuario.getId();
     }
 }

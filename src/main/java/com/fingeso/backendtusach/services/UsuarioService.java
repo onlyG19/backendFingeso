@@ -14,14 +14,8 @@ public class UsuarioService {
     UsuarioRepository usuarios;
 
 
-    public String validarCredenciales(String nombre_usuario, String contrasena){
-        Usuario usuario = usuarios.buscarUsuarioCredenciales(nombre_usuario, contrasena);
-
-        if(usuario == null){
-            return null;
-        }
-
-        return usuario.getRol();
+    public Usuario buscarCredenciales(String nombre_usuario, String contrasena){
+        return usuarios.buscarUsuarioCredenciales(nombre_usuario, contrasena);
     }
 
     public ArrayList<Usuario> obtenerAnalistas(){
