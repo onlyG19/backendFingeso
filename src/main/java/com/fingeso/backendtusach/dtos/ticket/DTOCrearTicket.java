@@ -1,15 +1,17 @@
 package com.fingeso.backendtusach.dtos.ticket;
 
 import com.fingeso.backendtusach.models.Ticket;
+import com.fingeso.backendtusach.models.Usuario;
 
 public class DTOCrearTicket {
     private String motivo;
     private String categoria;
     private String cuerpo;
+    public Long id_usuario;
 
     // Transforma el DTO a una entidad valida
-    public static Ticket aEntidad(DTOCrearTicket dto){
-        return new Ticket(dto.motivo, dto.cuerpo, dto.categoria);
+    public static Ticket aEntidad(DTOCrearTicket dto, Usuario usuario){
+        return new Ticket(dto.motivo, dto.cuerpo, dto.categoria, usuario);
     }
 
     public String getMotivo() {

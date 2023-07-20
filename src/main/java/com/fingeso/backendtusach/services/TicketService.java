@@ -3,6 +3,7 @@ package com.fingeso.backendtusach.services;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import com.fingeso.backendtusach.dtos.ticket.DTOCrearTicket;
 import com.fingeso.backendtusach.models.Seguimiento;
 import com.fingeso.backendtusach.models.Ticket;
 import com.fingeso.backendtusach.models.Usuario;
@@ -26,7 +27,12 @@ public class TicketService {
         return (ArrayList<Ticket>) ticketRepository.findAll();
     }
 
-    public Ticket guardarTicket(Ticket ticket){
+    public Ticket guardarTicket(DTOCrearTicket ticket_crear){
+        Usuario usuario_asociado = usuarios.findById(ticket_crear.id_usuario).get();
+
+        System.out.println(usuario_asociado);
+
+        Ticket ticket = DTOCrearTicket.aEntidad(ticket_crear, usuario_asociado);
         ticket = ticketRepository.save(ticket);
         agregarActividad(ticket.getId(), "Creado");
         return ticket;

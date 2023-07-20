@@ -37,14 +37,14 @@ public class Ticket {
     public String actividad;
 
     protected Ticket() {}
-    public Ticket(String titulo, String cuerpo, String categoria){
+    public Ticket(String titulo, String cuerpo, String categoria, Usuario usuario){
         fecha_creacion = LocalDateTime.now();
-        usuario_asociado = null;
         estado = "Creado";
 
         this.titulo = titulo;
         this.cuerpo = cuerpo;
         this.categoria = categoria;
+        usuario_asociado = usuario;
     }
 
     public Long getId(){

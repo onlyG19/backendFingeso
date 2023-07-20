@@ -34,7 +34,7 @@ public class TicketController {
 
     @PostMapping()
     public Ticket guardarTicket(@RequestBody DTOCrearTicket ticket){
-        return ticketService.guardarTicket(DTOCrearTicket.aEntidad(ticket));
+        return ticketService.guardarTicket(ticket);
     }
 
     @GetMapping(path = "/{id}")
