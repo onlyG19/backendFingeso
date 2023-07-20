@@ -105,4 +105,16 @@ public class TicketService {
         ticket.estado = "En Proceso Cierre";
         ticketRepository.save(ticket);
     }
+
+    public void aceptarRespuesta(Long id_ticket){
+        Ticket ticket = ticketRepository.findById(id_ticket).get();
+
+        Respuesta respuesta = ticket.getRespuestas().get(ticket.getRespuestas().size() - 1);
+        respuesta.aceptada = true;
+        respuestas.save(respuesta);
+
+        agregarActividad(id_ticket, "Respuesta aceptada");
+        ticket.estado = "Cerrado";
+        ticketRepository.save(ticket);
+    }
 }
